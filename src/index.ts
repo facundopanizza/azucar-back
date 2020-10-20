@@ -16,8 +16,9 @@ import { PriceResolver } from './resolvers/price';
   const conn = await createConnection({
     type: 'postgres',
     database: 'azucar',
+    host: "192.168.0.48",
     username: 'facundo',
-    password: '',
+    password: 'facundo',
     logging: true,
     synchronize: true,
     migrations: [path.join(__dirname, './migrations/*')],

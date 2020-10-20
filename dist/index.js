@@ -29,8 +29,9 @@ const price_1 = require("./resolvers/price");
     const conn = yield typeorm_1.createConnection({
         type: 'postgres',
         database: 'azucar',
+        host: "192.168.0.48",
         username: 'facundo',
-        password: '',
+        password: 'facundo',
         logging: true,
         synchronize: true,
         migrations: [path_1.default.join(__dirname, './migrations/*')],

@@ -7,7 +7,6 @@ export const validateProduct = (
   updating: boolean = false
 ) => {
   const errors = [];
-  console.log(brand);
 
   if (title.length === 0) {
     errors.push({

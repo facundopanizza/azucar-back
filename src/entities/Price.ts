@@ -25,7 +25,9 @@ export class Price extends BaseEntity {
   @Column()
   size!: string;
 
-  @ManyToOne(() => Product, (product) => product.prices)
+  @ManyToOne(() => Product, (product) => product.prices, {
+    onDelete: 'CASCADE',
+  })
   product: Product;
 
   @Field(() => String)

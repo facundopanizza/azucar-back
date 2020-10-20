@@ -25,13 +25,59 @@ class ProductResponse {
 @Resolver()
 export class ProductResolver {
   @Query(() => [Product])
-  products() {
-    return Product.find({ relations: ['brand', 'prices'] });
+  products(
+    @Arg('term', { nullable: true }) term?: string,
+    @Arg('brandId', () => Int, { nullable: true }) brandId?: number
+  ) {
+    if (term && brandId) {
+      term = term.toLowerCase();
+      return getConnection()
+        .getRepository(Product)
+        .createQueryBuilder('p')
+        .leftJoinAndSelect('p.brand', 'brand')
+        .leftJoinAndSelect('p.prices', 'price')
+        .where(
+          '(LOWER(p.title) LIKE :term OR LOWER(p.brandCode) LIKE :term) AND (brand.id = :brandId)',
+          {
+            term: `%${term}%`,
+            brandId,
+          }
+        )
+        .getMany();
+    } else if (term) {
+      term = term.toLowerCase();
+      return getConnection()
+        .getRepository(Product)
+        .createQueryBuilder('p')
+        .leftJoinAndSelect('p.brand', 'brand')
+        .leftJoinAndSelect('p.prices', 'price')
+        .where('LOWER(p.title) LIKE :term OR LOWER(p.brandCode) LIKE :term', {
+          term: `%${term}%`,
+        })
+        .getMany();
+    } else if (brandId) {
+      return getConnection()
+        .getRepository(Product)
+        .createQueryBuilder('p')
+        .leftJoinAndSelect('p.brand', 'brand')
+        .leftJoinAndSelect('p.prices', 'price')
+        .where('brand.id = :brandid', {
+          brandid: brandId,
+        })
+        .getMany();
+    } else {
+      return Product.find({ relations: ['brand', 'prices'] });
+    }
   }
 
   @Query(() => Product, { nullable: true })
-  product(@Arg('id', () => Int) id: number): Promise<Product | undefined> {
-    return Product.findOne(id);
+  async product(
+    @Arg('id', () => Int) id: number
+  ): Promise<Product | undefined> {
+    const product = await Product.findOne(id, {
+      relations: ['brand', 'prices'],
+    });
+    return product;
   }
 
   @Mutation(() => ProductResponse)

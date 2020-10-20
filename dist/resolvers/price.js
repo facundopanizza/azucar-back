@@ -46,7 +46,9 @@ PriceResponse = __decorate([
 ], PriceResponse);
 let PriceResolver = class PriceResolver {
     prices() {
-        return Price_1.Price.find();
+        return __awaiter(this, void 0, void 0, function* () {
+            return Price_1.Price.find();
+        });
     }
     price(id) {
         return Price_1.Price.findOne(id);
@@ -93,7 +95,7 @@ __decorate([
     type_graphql_1.Query(() => [Price_1.Price]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], PriceResolver.prototype, "prices", null);
 __decorate([
     type_graphql_1.Query(() => Price_1.Price, { nullable: true }),

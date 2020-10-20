@@ -25,7 +25,7 @@ class PriceResponse {
 @Resolver()
 export class PriceResolver {
   @Query(() => [Price])
-  prices() {
+  async prices() {
     return Price.find();
   }
 

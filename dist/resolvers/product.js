@@ -45,11 +45,54 @@ ProductResponse = __decorate([
     type_graphql_1.ObjectType()
 ], ProductResponse);
 let ProductResolver = class ProductResolver {
-    products() {
-        return Product_1.Product.find({ relations: ['brand', 'prices'] });
+    products(term, brandId) {
+        if (term && brandId) {
+            term = term.toLowerCase();
+            return typeorm_1.getConnection()
+                .getRepository(Product_1.Product)
+                .createQueryBuilder('p')
+                .leftJoinAndSelect('p.brand', 'brand')
+                .leftJoinAndSelect('p.prices', 'price')
+                .where('(LOWER(p.title) LIKE :term OR LOWER(p.brandCode) LIKE :term) AND (brand.id = :brandId)', {
+                term: `%${term}%`,
+                brandId,
+            })
+                .getMany();
+        }
+        else if (term) {
+            term = term.toLowerCase();
+            return typeorm_1.getConnection()
+                .getRepository(Product_1.Product)
+                .createQueryBuilder('p')
+                .leftJoinAndSelect('p.brand', 'brand')
+                .leftJoinAndSelect('p.prices', 'price')
+                .where('LOWER(p.title) LIKE :term OR LOWER(p.brandCode) LIKE :term', {
+                term: `%${term}%`,
+            })
+                .getMany();
+        }
+        else if (brandId) {
+            return typeorm_1.getConnection()
+                .getRepository(Product_1.Product)
+                .createQueryBuilder('p')
+                .leftJoinAndSelect('p.brand', 'brand')
+                .leftJoinAndSelect('p.prices', 'price')
+                .where('brand.id = :brandid', {
+                brandid: brandId,
+            })
+                .getMany();
+        }
+        else {
+            return Product_1.Product.find({ relations: ['brand', 'prices'] });
+        }
     }
     product(id) {
-        return Product_1.Product.findOne(id);
+        return __awaiter(this, void 0, void 0, function* () {
+            const product = yield Product_1.Product.findOne(id, {
+                relations: ['brand', 'prices'],
+            });
+            return product;
+        });
     }
     createProduct(title, brandCode, brandId) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -92,8 +135,10 @@ let ProductResolver = class ProductResolver {
 };
 __decorate([
     type_graphql_1.Query(() => [Product_1.Product]),
+    __param(0, type_graphql_1.Arg('term', { nullable: true })),
+    __param(1, type_graphql_1.Arg('brandId', () => type_graphql_1.Int, { nullable: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String, Number]),
     __metadata("design:returntype", void 0)
 ], ProductResolver.prototype, "products", null);
 __decorate([

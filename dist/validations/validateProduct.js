@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateProduct = void 0;
 exports.validateProduct = (title, brandCode, brand, updating = false) => {
     const errors = [];
-    console.log(brand);
     if (title.length === 0) {
         errors.push({
             field: 'title',
