@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateAndCategory = void 0;
-exports.validateAndCategory = (title) => {
+exports.validateBrandAndCategory = void 0;
+exports.validateBrandAndCategory = (title) => {
     const errors = [];
     if (title.length === 0) {
         errors.push({
@@ -14,4 +14,4 @@ exports.validateAndCategory = (title) => {
     }
     return false;
 };
-//# sourceMappingURL=validateBrand.js.map
+//# sourceMappingURL=validateBrandAndCategory.js.map

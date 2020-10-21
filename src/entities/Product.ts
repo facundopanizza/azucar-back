@@ -1,15 +1,18 @@
-import { ObjectType, Field } from 'type-graphql';
+import { Field, ObjectType } from 'type-graphql';
 import {
-  Entity,
   BaseEntity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Brand } from './Brand';
+import { Category } from './Category';
 import { Price } from './Price';
 
 @ObjectType()
@@ -26,6 +29,11 @@ export class Product extends BaseEntity {
   @Field()
   @Column()
   brandCode!: string;
+
+  @Field(() => [Category])
+  @ManyToMany(() => Category, (category) => category.products)
+  @JoinTable()
+  categories: Category[];
 
   @Field(() => Brand)
   @ManyToOne(() => Brand, (brand) => brand.products)

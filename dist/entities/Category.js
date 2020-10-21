@@ -9,58 +9,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Product = void 0;
+exports.Category = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
-const Brand_1 = require("./Brand");
-const Category_1 = require("./Category");
-const Price_1 = require("./Price");
-let Product = class Product extends typeorm_1.BaseEntity {
+const Product_1 = require("./Product");
+let Category = class Category extends typeorm_1.BaseEntity {
 };
 __decorate([
     type_graphql_1.Field(),
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Product.prototype, "id", void 0);
+], Category.prototype, "id", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field(() => String),
     typeorm_1.Column(),
     __metadata("design:type", String)
-], Product.prototype, "title", void 0);
+], Category.prototype, "title", void 0);
 __decorate([
-    type_graphql_1.Field(),
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], Product.prototype, "brandCode", void 0);
-__decorate([
-    type_graphql_1.Field(() => [Category_1.Category]),
-    typeorm_1.ManyToMany(() => Category_1.Category, (category) => category.products),
-    typeorm_1.JoinTable(),
+    typeorm_1.ManyToMany(() => Product_1.Product, (product) => product.categories),
     __metadata("design:type", Array)
-], Product.prototype, "categories", void 0);
-__decorate([
-    type_graphql_1.Field(() => Brand_1.Brand),
-    typeorm_1.ManyToOne(() => Brand_1.Brand, (brand) => brand.products),
-    __metadata("design:type", Brand_1.Brand)
-], Product.prototype, "brand", void 0);
-__decorate([
-    type_graphql_1.Field(() => [Price_1.Price]),
-    typeorm_1.OneToMany(() => Price_1.Price, (price) => price.product),
-    __metadata("design:type", Array)
-], Product.prototype, "prices", void 0);
+], Category.prototype, "products", void 0);
 __decorate([
     type_graphql_1.Field(() => String),
     typeorm_1.CreateDateColumn(),
     __metadata("design:type", Date)
-], Product.prototype, "createdAt", void 0);
+], Category.prototype, "createdAt", void 0);
 __decorate([
     type_graphql_1.Field(() => String),
     typeorm_1.UpdateDateColumn(),
     __metadata("design:type", Date)
-], Product.prototype, "updatedAt", void 0);
-Product = __decorate([
+], Category.prototype, "updatedAt", void 0);
+Category = __decorate([
     type_graphql_1.ObjectType(),
     typeorm_1.Entity()
-], Product);
-exports.Product = Product;
-//# sourceMappingURL=Product.js.map
+], Category);
+exports.Category = Category;
+//# sourceMappingURL=Category.js.map

@@ -25,23 +25,31 @@ const Product_1 = require("./entities/Product");
 const Price_1 = require("./entities/Price");
 const product_1 = require("./resolvers/product");
 const price_1 = require("./resolvers/price");
+const Category_1 = require("./entities/Category");
+const category_1 = require("./resolvers/category");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const conn = yield typeorm_1.createConnection({
         type: 'postgres',
         database: 'azucar',
-        host: "192.168.0.48",
+        host: '192.168.0.48',
         username: 'facundo',
         password: 'facundo',
         logging: true,
         synchronize: true,
         migrations: [path_1.default.join(__dirname, './migrations/*')],
-        entities: [Product_1.Product, Brand_1.Brand, Size_1.Size, Price_1.Price],
+        entities: [Product_1.Product, Brand_1.Brand, Size_1.Size, Price_1.Price, Category_1.Category],
     });
     yield conn.runMigrations();
     const app = express_1.default();
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield type_graphql_1.buildSchema({
-            resolvers: [product_1.ProductResolver, brand_1.BrandResolver, size_1.SizeResolver, price_1.PriceResolver],
+            resolvers: [
+                product_1.ProductResolver,
+                brand_1.BrandResolver,
+                size_1.SizeResolver,
+                price_1.PriceResolver,
+                category_1.CategoryResolver,
+            ],
             validate: false,
         }),
     });

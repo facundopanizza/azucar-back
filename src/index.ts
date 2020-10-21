@@ -11,18 +11,20 @@ import { Product } from './entities/Product';
 import { Price } from './entities/Price';
 import { ProductResolver } from './resolvers/product';
 import { PriceResolver } from './resolvers/price';
+import { Category } from './entities/Category';
+import { CategoryResolver } from './resolvers/category';
 
 (async () => {
   const conn = await createConnection({
     type: 'postgres',
     database: 'azucar',
-    host: "192.168.0.48",
+    host: '192.168.0.48',
     username: 'facundo',
     password: 'facundo',
     logging: true,
     synchronize: true,
     migrations: [path.join(__dirname, './migrations/*')],
-    entities: [Product, Brand, Size, Price],
+    entities: [Product, Brand, Size, Price, Category],
   });
   await conn.runMigrations();
 
@@ -30,7 +32,13 @@ import { PriceResolver } from './resolvers/price';
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [ProductResolver, BrandResolver, SizeResolver, PriceResolver],
+      resolvers: [
+        ProductResolver,
+        BrandResolver,
+        SizeResolver,
+        PriceResolver,
+        CategoryResolver,
+      ],
       validate: false,
     }),
   });

@@ -1,4 +1,4 @@
-export const validateBrand = (title: string) => {
+export const validateBrandAndCategory = (title: string) => {
   const errors = [];
 
   if (title.length === 0) {

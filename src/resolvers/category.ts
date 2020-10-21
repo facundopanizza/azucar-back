@@ -7,47 +7,47 @@ import {
   Field,
   Int,
 } from 'type-graphql';
-import { Brand } from '../entities/Brand';
+import { Category } from '../entities/Category';
 import { validateBrandAndCategory } from '../validations/validateBrandAndCategory';
 import { getConnection } from 'typeorm';
 import FieldError from '../utils/fieldErrors';
 
 @ObjectType()
-class BrandResponse {
+class CategoryResponse {
   @Field(() => [FieldError], { nullable: true })
   errors?: FieldError[];
 
-  @Field(() => Brand, { nullable: true })
-  brand?: Brand;
+  @Field(() => Category, { nullable: true })
+  category?: Category;
 }
 
 @Resolver()
-export class BrandResolver {
-  @Query(() => [Brand])
-  brands() {
-    return Brand.find();
+export class CategoryResolver {
+  @Query(() => [Category])
+  categories() {
+    return Category.find();
   }
 
-  @Query(() => Brand, { nullable: true })
-  brand(@Arg('id', () => Int) id: number): Promise<Brand | undefined> {
-    return Brand.findOne(id);
+  @Query(() => Category, { nullable: true })
+  category(@Arg('id', () => Int) id: number): Promise<Category | undefined> {
+    return Category.findOne(id);
   }
 
-  @Mutation(() => BrandResponse)
-  async createBrand(@Arg('title') title: string) {
+  @Mutation(() => CategoryResponse)
+  async createCategory(@Arg('title') title: string) {
     const errors = validateBrandAndCategory(title);
 
     if (errors) {
       return errors;
     }
 
-    const brand = await Brand.create({ title }).save();
+    const category = await Category.create({ title }).save();
 
-    return { brand };
+    return { category };
   }
 
-  @Mutation(() => BrandResponse)
-  async editBrand(
+  @Mutation(() => CategoryResponse)
+  async editCategory(
     @Arg('id', () => Int) id: number,
     @Arg('title') title: string
   ) {
@@ -59,18 +59,18 @@ export class BrandResolver {
 
     const result = await getConnection()
       .createQueryBuilder()
-      .update(Brand)
+      .update(Category)
       .set({ title })
       .where('id = :id', { id })
       .returning('*')
       .execute();
 
-    return { brand: result.raw[0] };
+    return { category: result.raw[0] };
   }
 
   @Mutation(() => Boolean)
-  async deleteBrand(@Arg('id', () => Int) id: number) {
-    await Brand.delete(id);
+  async deleteCategory(@Arg('id', () => Int) id: number) {
+    await Category.delete(id);
     return true;
   }
 }

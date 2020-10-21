@@ -24,43 +24,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BrandResolver = void 0;
+exports.CategoryResolver = void 0;
 const type_graphql_1 = require("type-graphql");
-const Brand_1 = require("../entities/Brand");
+const Category_1 = require("../entities/Category");
 const validateBrandAndCategory_1 = require("../validations/validateBrandAndCategory");
 const typeorm_1 = require("typeorm");
 const fieldErrors_1 = __importDefault(require("../utils/fieldErrors"));
-let BrandResponse = class BrandResponse {
+let CategoryResponse = class CategoryResponse {
 };
 __decorate([
     type_graphql_1.Field(() => [fieldErrors_1.default], { nullable: true }),
     __metadata("design:type", Array)
-], BrandResponse.prototype, "errors", void 0);
+], CategoryResponse.prototype, "errors", void 0);
 __decorate([
-    type_graphql_1.Field(() => Brand_1.Brand, { nullable: true }),
-    __metadata("design:type", Brand_1.Brand)
-], BrandResponse.prototype, "brand", void 0);
-BrandResponse = __decorate([
+    type_graphql_1.Field(() => Category_1.Category, { nullable: true }),
+    __metadata("design:type", Category_1.Category)
+], CategoryResponse.prototype, "category", void 0);
+CategoryResponse = __decorate([
     type_graphql_1.ObjectType()
-], BrandResponse);
-let BrandResolver = class BrandResolver {
-    brands() {
-        return Brand_1.Brand.find();
+], CategoryResponse);
+let CategoryResolver = class CategoryResolver {
+    categories() {
+        return Category_1.Category.find();
     }
-    brand(id) {
-        return Brand_1.Brand.findOne(id);
+    category(id) {
+        return Category_1.Category.findOne(id);
     }
-    createBrand(title) {
+    createCategory(title) {
         return __awaiter(this, void 0, void 0, function* () {
             const errors = validateBrandAndCategory_1.validateBrandAndCategory(title);
             if (errors) {
                 return errors;
             }
-            const brand = yield Brand_1.Brand.create({ title }).save();
-            return { brand };
+            const category = yield Category_1.Category.create({ title }).save();
+            return { category };
         });
     }
-    editBrand(id, title) {
+    editCategory(id, title) {
         return __awaiter(this, void 0, void 0, function* () {
             const errors = validateBrandAndCategory_1.validateBrandAndCategory(title);
             if (errors) {
@@ -68,58 +68,58 @@ let BrandResolver = class BrandResolver {
             }
             const result = yield typeorm_1.getConnection()
                 .createQueryBuilder()
-                .update(Brand_1.Brand)
+                .update(Category_1.Category)
                 .set({ title })
                 .where('id = :id', { id })
                 .returning('*')
                 .execute();
-            return { brand: result.raw[0] };
+            return { category: result.raw[0] };
         });
     }
-    deleteBrand(id) {
+    deleteCategory(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield Brand_1.Brand.delete(id);
+            yield Category_1.Category.delete(id);
             return true;
         });
     }
 };
 __decorate([
-    type_graphql_1.Query(() => [Brand_1.Brand]),
+    type_graphql_1.Query(() => [Category_1.Category]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], BrandResolver.prototype, "brands", null);
+], CategoryResolver.prototype, "categories", null);
 __decorate([
-    type_graphql_1.Query(() => Brand_1.Brand, { nullable: true }),
+    type_graphql_1.Query(() => Category_1.Category, { nullable: true }),
     __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], BrandResolver.prototype, "brand", null);
+], CategoryResolver.prototype, "category", null);
 __decorate([
-    type_graphql_1.Mutation(() => BrandResponse),
+    type_graphql_1.Mutation(() => CategoryResponse),
     __param(0, type_graphql_1.Arg('title')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], BrandResolver.prototype, "createBrand", null);
+], CategoryResolver.prototype, "createCategory", null);
 __decorate([
-    type_graphql_1.Mutation(() => BrandResponse),
+    type_graphql_1.Mutation(() => CategoryResponse),
     __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
     __param(1, type_graphql_1.Arg('title')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String]),
     __metadata("design:returntype", Promise)
-], BrandResolver.prototype, "editBrand", null);
+], CategoryResolver.prototype, "editCategory", null);
 __decorate([
     type_graphql_1.Mutation(() => Boolean),
     __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], BrandResolver.prototype, "deleteBrand", null);
-BrandResolver = __decorate([
+], CategoryResolver.prototype, "deleteCategory", null);
+CategoryResolver = __decorate([
     type_graphql_1.Resolver()
-], BrandResolver);
-exports.BrandResolver = BrandResolver;
-//# sourceMappingURL=brand.js.map
+], CategoryResolver);
+exports.CategoryResolver = CategoryResolver;
+//# sourceMappingURL=category.js.map
