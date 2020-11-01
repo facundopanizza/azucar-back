@@ -1,0 +1,10 @@
+{
+  "type": "postgres",
+  "host": "192.168.0.48",
+  "port": 5432,
+  "username": "facundo",
+  "password": "facundo",
+  "database": "azucar2",
+  "entities": ["dist/entities/*.js"],
+  "migrations": ["src/migrations/*.js"]
+}

@@ -1,7 +1,8 @@
+import 'dotenv-safe/config';
+// import cors from 'cors';
 import { createConnection } from 'typeorm';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
-import path from 'path';
 import { buildSchema } from 'type-graphql';
 import { BrandResolver } from './resolvers/brand';
 import { Brand } from './entities/Brand';
@@ -15,21 +16,21 @@ import { Category } from './entities/Category';
 import { CategoryResolver } from './resolvers/category';
 
 (async () => {
-  const conn = await createConnection({
+  await createConnection({
     type: 'postgres',
-    database: 'azucar',
-    host: '192.168.0.48',
-    username: 'facundo',
-    password: 'facundo',
-    logging: true,
-    synchronize: true,
-    migrations: [path.join(__dirname, './migrations/*')],
+    url: process.env.DATABASE_URL,
+//     logging: true,
+//     synchronize: true,
+//     migrations: [path.join(__dirname, './migrations/*')],
     entities: [Product, Brand, Size, Price, Category],
   });
-  await conn.runMigrations();
+  // await conn.runMigrations();
 
   const app = express();
 
+//  app.use(cors({ origin: 'https://azucar.panizza.dev', credentials: true }))
+
+  app.set('proxy', 1);
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [
@@ -43,9 +44,12 @@ import { CategoryResolver } from './resolvers/category';
     }),
   });
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ 
+    app,
+//    cors: false
+  });
 
-  app.listen(4000, () => {
-    console.log('server started on localhost:4000');
+  app.listen(parseInt(process.env.PORT), () => {
+    console.log('server started on localhost:' + process.env.PORT);
   });
 })();

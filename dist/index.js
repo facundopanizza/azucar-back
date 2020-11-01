@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv-safe/config");
 const typeorm_1 = require("typeorm");
 const apollo_server_express_1 = require("apollo-server-express");
 const express_1 = __importDefault(require("express"));
-const path_1 = __importDefault(require("path"));
 const type_graphql_1 = require("type-graphql");
 const brand_1 = require("./resolvers/brand");
 const Brand_1 = require("./entities/Brand");
@@ -28,19 +28,13 @@ const price_1 = require("./resolvers/price");
 const Category_1 = require("./entities/Category");
 const category_1 = require("./resolvers/category");
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    const conn = yield typeorm_1.createConnection({
+    yield typeorm_1.createConnection({
         type: 'postgres',
-        database: 'azucar',
-        host: '192.168.0.48',
-        username: 'facundo',
-        password: 'facundo',
-        logging: true,
-        synchronize: true,
-        migrations: [path_1.default.join(__dirname, './migrations/*')],
+        url: process.env.DATABASE_URL,
         entities: [Product_1.Product, Brand_1.Brand, Size_1.Size, Price_1.Price, Category_1.Category],
     });
-    yield conn.runMigrations();
     const app = express_1.default();
+    app.set('proxy', 1);
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield type_graphql_1.buildSchema({
             resolvers: [
@@ -54,8 +48,8 @@ const category_1 = require("./resolvers/category");
         }),
     });
     apolloServer.applyMiddleware({ app });
-    app.listen(4000, () => {
-        console.log('server started on localhost:4000');
+    app.listen(parseInt(process.env.PORT), () => {
+        console.log('server started on localhost:' + process.env.PORT);
     });
 }))();
 //# sourceMappingURL=index.js.map
