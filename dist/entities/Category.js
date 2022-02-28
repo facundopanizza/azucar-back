@@ -16,32 +16,32 @@ const Product_1 = require("./Product");
 let Category = class Category extends typeorm_1.BaseEntity {
 };
 __decorate([
-    type_graphql_1.Field(),
-    typeorm_1.PrimaryGeneratedColumn(),
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], Category.prototype, "id", void 0);
 __decorate([
-    type_graphql_1.Field(() => String),
-    typeorm_1.Column(),
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Category.prototype, "title", void 0);
 __decorate([
-    typeorm_1.ManyToMany(() => Product_1.Product, (product) => product.categories),
+    (0, typeorm_1.ManyToMany)(() => Product_1.Product, (product) => product.categories),
     __metadata("design:type", Array)
 ], Category.prototype, "products", void 0);
 __decorate([
-    type_graphql_1.Field(() => String),
-    typeorm_1.CreateDateColumn(),
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Category.prototype, "createdAt", void 0);
 __decorate([
-    type_graphql_1.Field(() => String),
-    typeorm_1.UpdateDateColumn(),
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
 ], Category.prototype, "updatedAt", void 0);
 Category = __decorate([
-    type_graphql_1.ObjectType(),
-    typeorm_1.Entity()
+    (0, type_graphql_1.ObjectType)(),
+    (0, typeorm_1.Entity)()
 ], Category);
 exports.Category = Category;
 //# sourceMappingURL=Category.js.map

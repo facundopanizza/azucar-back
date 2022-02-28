@@ -33,15 +33,15 @@ const fieldErrors_1 = __importDefault(require("../utils/fieldErrors"));
 let BrandResponse = class BrandResponse {
 };
 __decorate([
-    type_graphql_1.Field(() => [fieldErrors_1.default], { nullable: true }),
+    (0, type_graphql_1.Field)(() => [fieldErrors_1.default], { nullable: true }),
     __metadata("design:type", Array)
 ], BrandResponse.prototype, "errors", void 0);
 __decorate([
-    type_graphql_1.Field(() => Brand_1.Brand, { nullable: true }),
+    (0, type_graphql_1.Field)(() => Brand_1.Brand, { nullable: true }),
     __metadata("design:type", Brand_1.Brand)
 ], BrandResponse.prototype, "brand", void 0);
 BrandResponse = __decorate([
-    type_graphql_1.ObjectType()
+    (0, type_graphql_1.ObjectType)()
 ], BrandResponse);
 let BrandResolver = class BrandResolver {
     brands() {
@@ -52,7 +52,7 @@ let BrandResolver = class BrandResolver {
     }
     createBrand(title) {
         return __awaiter(this, void 0, void 0, function* () {
-            const errors = validateBrandAndCategory_1.validateBrandAndCategory(title);
+            const errors = (0, validateBrandAndCategory_1.validateBrandAndCategory)(title);
             if (errors) {
                 return errors;
             }
@@ -62,11 +62,11 @@ let BrandResolver = class BrandResolver {
     }
     editBrand(id, title) {
         return __awaiter(this, void 0, void 0, function* () {
-            const errors = validateBrandAndCategory_1.validateBrandAndCategory(title);
+            const errors = (0, validateBrandAndCategory_1.validateBrandAndCategory)(title);
             if (errors) {
                 return errors;
             }
-            const result = yield typeorm_1.getConnection()
+            const result = yield (0, typeorm_1.getConnection)()
                 .createQueryBuilder()
                 .update(Brand_1.Brand)
                 .set({ title })
@@ -84,42 +84,42 @@ let BrandResolver = class BrandResolver {
     }
 };
 __decorate([
-    type_graphql_1.Query(() => [Brand_1.Brand]),
+    (0, type_graphql_1.Query)(() => [Brand_1.Brand]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], BrandResolver.prototype, "brands", null);
 __decorate([
-    type_graphql_1.Query(() => Brand_1.Brand, { nullable: true }),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
+    (0, type_graphql_1.Query)(() => Brand_1.Brand, { nullable: true }),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], BrandResolver.prototype, "brand", null);
 __decorate([
-    type_graphql_1.Mutation(() => BrandResponse),
-    __param(0, type_graphql_1.Arg('title')),
+    (0, type_graphql_1.Mutation)(() => BrandResponse),
+    __param(0, (0, type_graphql_1.Arg)('title')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], BrandResolver.prototype, "createBrand", null);
 __decorate([
-    type_graphql_1.Mutation(() => BrandResponse),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
-    __param(1, type_graphql_1.Arg('title')),
+    (0, type_graphql_1.Mutation)(() => BrandResponse),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
+    __param(1, (0, type_graphql_1.Arg)('title')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String]),
     __metadata("design:returntype", Promise)
 ], BrandResolver.prototype, "editBrand", null);
 __decorate([
-    type_graphql_1.Mutation(() => Boolean),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
+    (0, type_graphql_1.Mutation)(() => Boolean),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], BrandResolver.prototype, "deleteBrand", null);
 BrandResolver = __decorate([
-    type_graphql_1.Resolver()
+    (0, type_graphql_1.Resolver)()
 ], BrandResolver);
 exports.BrandResolver = BrandResolver;
 //# sourceMappingURL=brand.js.map

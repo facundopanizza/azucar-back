@@ -34,15 +34,15 @@ const fieldErrors_1 = __importDefault(require("../utils/fieldErrors"));
 let PriceResponse = class PriceResponse {
 };
 __decorate([
-    type_graphql_1.Field(() => [fieldErrors_1.default], { nullable: true }),
+    (0, type_graphql_1.Field)(() => [fieldErrors_1.default], { nullable: true }),
     __metadata("design:type", Array)
 ], PriceResponse.prototype, "errors", void 0);
 __decorate([
-    type_graphql_1.Field(() => Price_1.Price, { nullable: true }),
+    (0, type_graphql_1.Field)(() => Price_1.Price, { nullable: true }),
     __metadata("design:type", Price_1.Price)
 ], PriceResponse.prototype, "price", void 0);
 PriceResponse = __decorate([
-    type_graphql_1.ObjectType()
+    (0, type_graphql_1.ObjectType)()
 ], PriceResponse);
 let PriceResolver = class PriceResolver {
     prices() {
@@ -56,7 +56,7 @@ let PriceResolver = class PriceResolver {
     createPrice(amount, size, productId) {
         return __awaiter(this, void 0, void 0, function* () {
             const product = yield Product_1.Product.findOne(productId);
-            const errors = validatePrice_1.validatePrice(amount, size, product);
+            const errors = (0, validatePrice_1.validatePrice)(amount, size, product);
             if (errors) {
                 return errors;
             }
@@ -70,11 +70,11 @@ let PriceResolver = class PriceResolver {
     }
     editPrice(id, amount, size) {
         return __awaiter(this, void 0, void 0, function* () {
-            const errors = validatePrice_1.validatePrice(amount, size);
+            const errors = (0, validatePrice_1.validatePrice)(amount, size);
             if (errors) {
                 return errors;
             }
-            const result = yield typeorm_1.getConnection()
+            const result = yield (0, typeorm_1.getConnection)()
                 .createQueryBuilder()
                 .update(Price_1.Price)
                 .set({ amount, size: size.toUpperCase() })
@@ -92,45 +92,45 @@ let PriceResolver = class PriceResolver {
     }
 };
 __decorate([
-    type_graphql_1.Query(() => [Price_1.Price]),
+    (0, type_graphql_1.Query)(() => [Price_1.Price]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], PriceResolver.prototype, "prices", null);
 __decorate([
-    type_graphql_1.Query(() => Price_1.Price, { nullable: true }),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
+    (0, type_graphql_1.Query)(() => Price_1.Price, { nullable: true }),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], PriceResolver.prototype, "price", null);
 __decorate([
-    type_graphql_1.Mutation(() => PriceResponse),
-    __param(0, type_graphql_1.Arg('amount')),
-    __param(1, type_graphql_1.Arg('size')),
-    __param(2, type_graphql_1.Arg('productId', () => type_graphql_1.Int)),
+    (0, type_graphql_1.Mutation)(() => PriceResponse),
+    __param(0, (0, type_graphql_1.Arg)('amount')),
+    __param(1, (0, type_graphql_1.Arg)('size')),
+    __param(2, (0, type_graphql_1.Arg)('productId', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String, Number]),
     __metadata("design:returntype", Promise)
 ], PriceResolver.prototype, "createPrice", null);
 __decorate([
-    type_graphql_1.Mutation(() => PriceResponse),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
-    __param(1, type_graphql_1.Arg('amount')),
-    __param(2, type_graphql_1.Arg('size')),
+    (0, type_graphql_1.Mutation)(() => PriceResponse),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
+    __param(1, (0, type_graphql_1.Arg)('amount')),
+    __param(2, (0, type_graphql_1.Arg)('size')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Number, String]),
     __metadata("design:returntype", Promise)
 ], PriceResolver.prototype, "editPrice", null);
 __decorate([
-    type_graphql_1.Mutation(() => Boolean),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
+    (0, type_graphql_1.Mutation)(() => Boolean),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], PriceResolver.prototype, "deletePrice", null);
 PriceResolver = __decorate([
-    type_graphql_1.Resolver()
+    (0, type_graphql_1.Resolver)()
 ], PriceResolver);
 exports.PriceResolver = PriceResolver;
 //# sourceMappingURL=price.js.map

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateSize = void 0;
-exports.validateSize = (title) => {
+const validateSize = (title) => {
     const errors = [];
     if (title.length === 0) {
         errors.push({
@@ -14,4 +14,5 @@ exports.validateSize = (title) => {
     }
     return false;
 };
+exports.validateSize = validateSize;
 //# sourceMappingURL=validateSize.js.map

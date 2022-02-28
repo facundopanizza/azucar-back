@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateProduct = void 0;
-exports.validateProduct = (title, brandCode, brand, updating = false) => {
+const validateProduct = (title, brandCode, brand, updating = false) => {
     const errors = [];
     if (title.length === 0) {
         errors.push({
@@ -26,4 +26,5 @@ exports.validateProduct = (title, brandCode, brand, updating = false) => {
     }
     return false;
 };
+exports.validateProduct = validateProduct;
 //# sourceMappingURL=validateProduct.js.map

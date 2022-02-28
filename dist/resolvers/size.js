@@ -33,15 +33,15 @@ const fieldErrors_1 = __importDefault(require("../utils/fieldErrors"));
 let SizeResponse = class SizeResponse {
 };
 __decorate([
-    type_graphql_1.Field(() => [fieldErrors_1.default], { nullable: true }),
+    (0, type_graphql_1.Field)(() => [fieldErrors_1.default], { nullable: true }),
     __metadata("design:type", Array)
 ], SizeResponse.prototype, "errors", void 0);
 __decorate([
-    type_graphql_1.Field(() => Size_1.Size, { nullable: true }),
+    (0, type_graphql_1.Field)(() => Size_1.Size, { nullable: true }),
     __metadata("design:type", Size_1.Size)
 ], SizeResponse.prototype, "size", void 0);
 SizeResponse = __decorate([
-    type_graphql_1.ObjectType()
+    (0, type_graphql_1.ObjectType)()
 ], SizeResponse);
 let SizeResolver = class SizeResolver {
     sizes() {
@@ -52,7 +52,7 @@ let SizeResolver = class SizeResolver {
     }
     createSize(title) {
         return __awaiter(this, void 0, void 0, function* () {
-            const errors = validateSize_1.validateSize(title);
+            const errors = (0, validateSize_1.validateSize)(title);
             if (errors) {
                 return errors;
             }
@@ -62,11 +62,11 @@ let SizeResolver = class SizeResolver {
     }
     editSize(id, title) {
         return __awaiter(this, void 0, void 0, function* () {
-            const errors = validateSize_1.validateSize(title);
+            const errors = (0, validateSize_1.validateSize)(title);
             if (errors) {
                 return errors;
             }
-            const result = yield typeorm_1.getConnection()
+            const result = yield (0, typeorm_1.getConnection)()
                 .createQueryBuilder()
                 .update(Size_1.Size)
                 .set({ title: title.toUpperCase() })
@@ -84,42 +84,42 @@ let SizeResolver = class SizeResolver {
     }
 };
 __decorate([
-    type_graphql_1.Query(() => [Size_1.Size]),
+    (0, type_graphql_1.Query)(() => [Size_1.Size]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], SizeResolver.prototype, "sizes", null);
 __decorate([
-    type_graphql_1.Query(() => Size_1.Size, { nullable: true }),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
+    (0, type_graphql_1.Query)(() => Size_1.Size, { nullable: true }),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], SizeResolver.prototype, "size", null);
 __decorate([
-    type_graphql_1.Mutation(() => SizeResponse),
-    __param(0, type_graphql_1.Arg('title')),
+    (0, type_graphql_1.Mutation)(() => SizeResponse),
+    __param(0, (0, type_graphql_1.Arg)('title')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], SizeResolver.prototype, "createSize", null);
 __decorate([
-    type_graphql_1.Mutation(() => SizeResponse),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
-    __param(1, type_graphql_1.Arg('title')),
+    (0, type_graphql_1.Mutation)(() => SizeResponse),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
+    __param(1, (0, type_graphql_1.Arg)('title')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String]),
     __metadata("design:returntype", Promise)
 ], SizeResolver.prototype, "editSize", null);
 __decorate([
-    type_graphql_1.Mutation(() => Boolean),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
+    (0, type_graphql_1.Mutation)(() => Boolean),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], SizeResolver.prototype, "deleteSize", null);
 SizeResolver = __decorate([
-    type_graphql_1.Resolver()
+    (0, type_graphql_1.Resolver)()
 ], SizeResolver);
 exports.SizeResolver = SizeResolver;
 //# sourceMappingURL=size.js.map

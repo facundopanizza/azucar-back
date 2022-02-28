@@ -33,15 +33,15 @@ const fieldErrors_1 = __importDefault(require("../utils/fieldErrors"));
 let CategoryResponse = class CategoryResponse {
 };
 __decorate([
-    type_graphql_1.Field(() => [fieldErrors_1.default], { nullable: true }),
+    (0, type_graphql_1.Field)(() => [fieldErrors_1.default], { nullable: true }),
     __metadata("design:type", Array)
 ], CategoryResponse.prototype, "errors", void 0);
 __decorate([
-    type_graphql_1.Field(() => Category_1.Category, { nullable: true }),
+    (0, type_graphql_1.Field)(() => Category_1.Category, { nullable: true }),
     __metadata("design:type", Category_1.Category)
 ], CategoryResponse.prototype, "category", void 0);
 CategoryResponse = __decorate([
-    type_graphql_1.ObjectType()
+    (0, type_graphql_1.ObjectType)()
 ], CategoryResponse);
 let CategoryResolver = class CategoryResolver {
     categories() {
@@ -52,7 +52,7 @@ let CategoryResolver = class CategoryResolver {
     }
     createCategory(title) {
         return __awaiter(this, void 0, void 0, function* () {
-            const errors = validateBrandAndCategory_1.validateBrandAndCategory(title);
+            const errors = (0, validateBrandAndCategory_1.validateBrandAndCategory)(title);
             if (errors) {
                 return errors;
             }
@@ -62,11 +62,11 @@ let CategoryResolver = class CategoryResolver {
     }
     editCategory(id, title) {
         return __awaiter(this, void 0, void 0, function* () {
-            const errors = validateBrandAndCategory_1.validateBrandAndCategory(title);
+            const errors = (0, validateBrandAndCategory_1.validateBrandAndCategory)(title);
             if (errors) {
                 return errors;
             }
-            const result = yield typeorm_1.getConnection()
+            const result = yield (0, typeorm_1.getConnection)()
                 .createQueryBuilder()
                 .update(Category_1.Category)
                 .set({ title })
@@ -84,42 +84,42 @@ let CategoryResolver = class CategoryResolver {
     }
 };
 __decorate([
-    type_graphql_1.Query(() => [Category_1.Category]),
+    (0, type_graphql_1.Query)(() => [Category_1.Category]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], CategoryResolver.prototype, "categories", null);
 __decorate([
-    type_graphql_1.Query(() => Category_1.Category, { nullable: true }),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
+    (0, type_graphql_1.Query)(() => Category_1.Category, { nullable: true }),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], CategoryResolver.prototype, "category", null);
 __decorate([
-    type_graphql_1.Mutation(() => CategoryResponse),
-    __param(0, type_graphql_1.Arg('title')),
+    (0, type_graphql_1.Mutation)(() => CategoryResponse),
+    __param(0, (0, type_graphql_1.Arg)('title')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CategoryResolver.prototype, "createCategory", null);
 __decorate([
-    type_graphql_1.Mutation(() => CategoryResponse),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
-    __param(1, type_graphql_1.Arg('title')),
+    (0, type_graphql_1.Mutation)(() => CategoryResponse),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
+    __param(1, (0, type_graphql_1.Arg)('title')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String]),
     __metadata("design:returntype", Promise)
 ], CategoryResolver.prototype, "editCategory", null);
 __decorate([
-    type_graphql_1.Mutation(() => Boolean),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
+    (0, type_graphql_1.Mutation)(() => Boolean),
+    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], CategoryResolver.prototype, "deleteCategory", null);
 CategoryResolver = __decorate([
-    type_graphql_1.Resolver()
+    (0, type_graphql_1.Resolver)()
 ], CategoryResolver);
 exports.CategoryResolver = CategoryResolver;
 //# sourceMappingURL=category.js.map
