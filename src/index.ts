@@ -20,7 +20,11 @@ console.log(process.env);
 (async () => {
   await createConnection({
     type: 'postgres',
-    url: process.env.DATABASE_URL as string,
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
 //     logging: true,
     synchronize: true,
 //     migrations: [path.join(__dirname, './migrations/*')],
