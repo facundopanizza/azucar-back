@@ -20,7 +20,7 @@ console.log(process.env);
 (async () => {
   await createConnection({
     type: 'postgres',
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL as string,
 //     logging: true,
     synchronize: true,
 //     migrations: [path.join(__dirname, './migrations/*')],
@@ -44,7 +44,7 @@ console.log(process.env);
     if (!body.password || body.password !== process.env.PASSWORD) return res.status(401).send();
 
 
-    return res.status(200).send(JSON.stringify({ accessToken: jwt.sign("user", process.env.SECRET_JWT)}))
+    return res.status(200).send(JSON.stringify({ accessToken: jwt.sign("user", process.env.SECRET_JWT as string)}))
   } );
 
 
@@ -64,7 +64,7 @@ console.log(process.env);
       const token = req.headers.authorization || '';
 
       try {
-        const user = jwt.verify(token, process.env.SECRET_JWT);
+        const user = jwt.verify(token, process.env.SECRET_JWT as string);
         if (!user) throw new AuthenticationError('you must be logged in');
       } catch (error) {
         throw new AuthenticationError('you must be logged in')
@@ -76,7 +76,7 @@ console.log(process.env);
     app,
   });
 
-  app.listen(parseInt(process.env.PORT), () => {
+  app.listen(parseInt(process.env.PORT as string), () => {
     console.log('server started on localhost:' + process.env.PORT);
   });
 })();
