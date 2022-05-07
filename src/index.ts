@@ -1,4 +1,3 @@
-import 'dotenv-safe/config';
 import cors from 'cors';
 import { createConnection } from 'typeorm';
 import { ApolloServer, AuthenticationError } from 'apollo-server-express';
