@@ -15,6 +15,8 @@ import { Category } from './entities/Category';
 import { CategoryResolver } from './resolvers/category';
 import jwt from 'jsonwebtoken';
 
+console.log(process.env);
+
 (async () => {
   await createConnection({
     type: 'postgres',
